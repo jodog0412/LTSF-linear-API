@@ -16,7 +16,7 @@ It recorded the __highest performance__ on time-series-prediction.
 
 ## Usage Examples
 ### 📈 Stock price prediction
-* __code__  
+* __Code__  
 ```python
 from yahooquery import Ticker
 raw=Ticker('AAPL').history(period='2y').xs('AAPL')
