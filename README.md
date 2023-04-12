@@ -32,7 +32,11 @@ pred=trainer(price,
              dataloader,
              window_size,
              forecast_size).implement() #train and evaluate
-figureplot(date,price,pred,window_size,forecast_size) #plot the result.
+figureplot(date,
+           price,
+           pred,
+           window_size,
+           forecast_size) #plot the result.
 ```
 * __Result__  
 <img src="https://user-images.githubusercontent.com/83653380/231395184-d6a119bc-a427-4fc0-9826-cd7a17ace163.png" width="80%" height="60%" title="stock price prediciton"></img>  
