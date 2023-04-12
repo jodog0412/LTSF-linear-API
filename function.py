@@ -76,7 +76,7 @@ class trainer():
         self.criterion = nn.MSELoss()
         self.optimizer=torch.optim.Adam(self.model.parameters(),lr=lr)
 
-    def train(self, epoch=55):
+    def train(self, epoch=75):
         self.model.train()
         progress=tqdm(range(epoch))
         losses=[]

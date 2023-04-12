@@ -4,8 +4,8 @@ from function import *
 #Usage example 1
 from yahooquery import Ticker
 raw=Ticker('AAPL').history(period='2y').xs('AAPL')
-window_size=92
-forecast_size=31
+window_size=122
+forecast_size=30
 
 date, data=targetParsing(raw,'adjclose') # preprocess raw data
 dataloader=customDataLoader(data,
