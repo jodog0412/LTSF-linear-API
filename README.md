@@ -23,16 +23,16 @@ raw=Ticker('AAPL').history(period='2y').xs('AAPL')
 window_size=122
 forecast_size=30
 
-date, data=targetParsing(raw,'adjclose') # preprocess raw data
-dataloader=customDataLoader(data,
+date, price=targetParsing(raw,'adjclose') # preprocess raw data
+dataloader=customDataLoader(price,
                             window_size,
                             forecast_size,
                             batch_size=4) #make dataloader
-pred=trainer(data,
+pred=trainer(price,
              dataloader,
              window_size,
              forecast_size).implement() #train and evaluate
-figureplot(date,data,pred,window_size,forecast_size) #plot the result.
+figureplot(date,price,pred,window_size,forecast_size) #plot the result.
 ```
 * __Result__  
 <img src="https://user-images.githubusercontent.com/83653380/231395184-d6a119bc-a427-4fc0-9826-cd7a17ace163.png" width="80%" height="60%" title="stock price prediciton"></img>  
