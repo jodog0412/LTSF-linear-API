@@ -10,7 +10,7 @@ And this is from the paper ["Are Transformers Effective for Time Series Forecast
 It is deep-learning model, but very efficient.  
 So, __you can use this model without expensive GPU.__
 * __High Performance__  
-<img src="https://user-images.githubusercontent.com/83653380/231390619-4fe2b936-99e0-469f-bba8-50dd5ac431b4.png" width="70%" height="50%" title="ETTH1 benchmark"></img>  
+<img src="https://user-images.githubusercontent.com/83653380/231390619-4fe2b936-99e0-469f-bba8-50dd5ac431b4.png" width="75%" height="55%" title="ETTH1 benchmark"></img>  
 (You can check this benchmark in [this site](https://paperswithcode.com/sota/time-series-forecasting-on-etth1-720))  
 It recorded the __highest performance__ on time-series-prediction.  
 
