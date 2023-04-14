@@ -18,6 +18,7 @@ It recorded the __highest performance__ on time-series-prediction.
 ### 📈 Stock price prediction
 * __Code__  
 ```python
+from function import *
 from yahooquery import Ticker
 raw=Ticker('AAPL').history(period='2y').xs('AAPL')
 window_size=122
