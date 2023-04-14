@@ -11,8 +11,11 @@ from sklearn.preprocessing import MinMaxScaler
 
 scaler=MinMaxScaler()
 
-def targetParsing(data,target):
-    result=data.loc[:,target]
+def targetParsing(data,target,index=False):
+    if index==False:
+        result=data.loc[:,target]
+    else:
+        result=data.iloc[:,target]
     return list(result.index), result.to_numpy()
 
 def transform(raw,check_inverse=False):
@@ -76,7 +79,7 @@ class trainer():
         self.criterion = nn.MSELoss()
         self.optimizer=torch.optim.Adam(self.model.parameters(),lr=lr)
 
-    def train(self, epoch=75):
+    def train(self, epoch=65):
         self.model.train()
         progress=tqdm(range(epoch))
         losses=[]
