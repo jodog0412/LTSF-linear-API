@@ -32,8 +32,7 @@ class windowDataset(Dataset):
         #stride씩 움직일 때 생기는 총 sample의 개수
         num_samples = (L - input_window - output_window) // stride + 1
         #input과 output
-        X = np.zeros([input_window, num_samples])
-        Y = np.zeros([output_window, num_samples])
+        X,Y = np.zeros([input_window, num_samples]), np.zeros([output_window, num_samples])
 
         for i in np.arange(num_samples):
             start_x = stride*i
@@ -46,8 +45,7 @@ class windowDataset(Dataset):
 
         X = X.reshape(X.shape[0], X.shape[1], 1).transpose((1,0,2)) #X:(num_samples,input_window,1)
         Y = Y.reshape(Y.shape[0], Y.shape[1], 1).transpose((1,0,2)) #Y:(num_samples,output_window,1)
-        self.x = X
-        self.y = Y
+        self.x, self.y = X, Y
         self.len = len(X)
 
     def __getitem__(self, i):
@@ -72,8 +70,10 @@ class trainer():
         self.forecast_size=forecast_size
         if name=="DLinear":
             self.model=Dlinear(window_size,forecast_size).to(self.device)
-        else:
+        elif name=="NLinear":
             self.model=Nlinear(window_size,forecast_size).to(self.device)
+        else:
+            raise(ValueError("model name이 정확하지 않습니다. DLinear 또는 NLinear로 입력하셨는지 확인해주세요."))
         self.feature_size=feature_size
         self.name=name
         self.criterion = nn.MSELoss()
@@ -83,7 +83,7 @@ class trainer():
         self.model.train()
         progress=tqdm(range(epoch))
         losses=[]
-        for i in progress:
+        for _ in progress:
             batchloss = 0.0
             for (inputs, outputs) in self.dataloader:
                 self.optimizer.zero_grad()

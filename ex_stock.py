@@ -4,9 +4,9 @@ import pandas as pd
 
 #Usage example 1
 from yahooquery import Ticker
-raw=Ticker('AAPL').history(period='2y').xs('AAPL')
-window_size=122
-forecast_size=31
+raw=Ticker('AAPL').history(period='1y').xs('AAPL')
+window_size=28
+forecast_size=7
 date, data=targetParsing(raw,'adjclose') # preprocess raw data
 dataloader=customDataLoader(data,
                             window_size,
