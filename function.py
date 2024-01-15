@@ -11,7 +11,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 scaler=MinMaxScaler()
 
-def targetParsing(data,target,index=False):
+def split_data(data,target,index=False):
     if index==False:
         result=data.loc[:,target]
     else:
@@ -20,7 +20,7 @@ def targetParsing(data,target,index=False):
 
 def transform(raw,check_inverse=False):
     data=raw.reshape(-1,1)
-    if check_inverse==False:
+    if not check_inverse:
         return scaler.fit_transform(data)
     else:
         return scaler.inverse_transform(data)[:,0]
@@ -54,7 +54,7 @@ class windowDataset(Dataset):
     def __len__(self):
         return self.len
 
-def customDataLoader(data,window_size:int,forecast_size:int,batch_size:int):
+def build_dataLoader(data,window_size:int,forecast_size:int,batch_size:int):
     train=transform(data)[:-window_size,0]
     dataset=windowDataset(train,window_size,forecast_size)
     result=DataLoader(dataset,batch_size=batch_size)
@@ -79,6 +79,9 @@ class trainer():
         self.criterion = nn.MSELoss()
         self.optimizer=torch.optim.Adam(self.model.parameters(),lr=lr)
 
+    def check(self):
+        return self.model
+
     def train(self, epoch=65):
         self.model.train()
         progress=tqdm(range(epoch))
@@ -94,6 +97,9 @@ class trainer():
                 batchloss += loss
             losses.append(batchloss.cpu().item())
             progress.set_description("loss: {:0.6f}".format(batchloss.cpu().item() / len(self.dataloader)))
+        plt.xlabel('epochs')
+        plt.ylabel('loss')
+        plt.title('epoch vs loss graph')
         plt.plot(losses)
 
     def evaluate(self):
@@ -105,7 +111,7 @@ class trainer():
     
     def implement(self):
         process=trainer(self.data,self.dataloader,self.window_size,
-                        self.forecast_size,self.feature_size,self.name)
+                        self.forecast_size,self.name,self.feature_size)
         process.train()
         evaluate=process.evaluate()
         result=transform(evaluate,check_inverse=True)
