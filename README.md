@@ -19,25 +19,29 @@ It recorded the __highest performance__ on time-series-prediction.
 * __Code__  
 ```python
 from function import *
+import pandas as pd
 from yahooquery import Ticker
-raw=Ticker('AAPL').history(period='2y').xs('AAPL')
-window_size=122
-forecast_size=30
 
-date, price=targetParsing(raw,'adjclose') # preprocess raw data
-dataloader=customDataLoader(price,
-                            window_size,
-                            forecast_size,
-                            batch_size=4) #make dataloader
-pred=trainer(price,
+raw=Ticker('AAPL').history(period='1y').xs('AAPL')
+window_size,forecast_size=30,10
+
+''' 1. preprocess raw data '''
+date, data=split_data(raw,'adjclose')
+
+''' 2. build dataloader '''
+dataloader=build_dataLoader(data,
+                            window_size=window_size,
+                            forecast_size=forecast_size,
+                            batch_size=4)
+
+''' 3. train and evaluate '''
+pred=trainer(data,
              dataloader,
-             window_size,
-             forecast_size).implement() #train and evaluate
-figureplot(date,
-           price,
-           pred,
-           window_size,
-           forecast_size) #plot the result.
+             window_size=window_size,
+             forecast_size=forecast_size).implement()
+
+''' 4. plot the result '''
+figureplot(date,data,pred,window_size,forecast_size)  
 ```
 * __Data__  
 <img src="https://user-images.githubusercontent.com/83653380/231967177-68f284a1-1b41-4fce-ab0b-6a563b3777d3.png" width="50%" height="38%" title="original stock price"></img>  
@@ -50,19 +54,29 @@ figureplot(date,
 ```python
 from function import *
 import pandas as pd
-window_size=24*7
-forecast_size=24
+
+window_size, forecast_size = 24*7,24
 raw=pd.read_csv('./data/서인천IC-부평IC 평균속도.csv',encoding='CP949').set_index('집계일시').drop('Unnamed: 0',axis=1)
-date, data=targetParsing(raw,0,index=True) # preprocess raw data
-dataloader=customDataLoader(data,
-                            window_size,
-                            forecast_size,
-                            batch_size=4) #make dataloader
+plt.plot(raw)
+plt.show()
+
+''' 1. preprocess raw data '''
+date, data=split_data(raw,0,index=True) 
+
+''' 2. build dataloader '''
+dataloader=build_dataLoader(data,
+                            window_size=window_size,
+                            forecast_size=forecast_size,
+                            batch_size=4) 
+
+''' 3. train and evaluate '''
 pred=trainer(data,
              dataloader,
-             window_size,
-             forecast_size).implement() #train and evaluate
-figureplot(date,data,pred,window_size,forecast_size) #plot the result.
+             window_size=window_size,
+             forecast_size=forecast_size).implement() 
+
+''' 4. plot the result ''' 
+figureplot(date,data,pred,window_size,forecast_size) 
 ```
 * __Data__
 
