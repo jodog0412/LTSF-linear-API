@@ -4,7 +4,7 @@ API for using `LTSF-Linear` easily.
 ## ❓ What is the `LTSF-Linear`?
 https://github.com/cure-lab/LTSF-Linear   
 `LTSF-Linear` is the SOTA of the long-time series forecasting model.  
-And this is from the paper ["Are Transformers Effective for Time Series Forecasting?"](https://arxiv.org/abs/2205.13504, "arxiv")
+And this is from the paper ["Are Transformers Effective for Time Series Forecasting?"](https://arxiv.org/pdf/2205.13504.pdf, "arxiv")
 ## ✨ Why is the `LTSF-Linear`?
 * __High accessibility__  
 It is deep-learning model, but very efficient.  
