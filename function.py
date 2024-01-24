@@ -124,5 +124,8 @@ def figureplot(date,data,pred,window_size,forecast_size):
     formatter = mdates.AutoDateFormatter(locator)
     ax.xaxis.set_major_locator(locator)
     ax.xaxis.set_major_formatter(formatter)
+    plt.xlabel('date')
+    plt.ylabel('values')
+    plt.title('Comparison between prediction and actual values')
     plt.legend()
     plt.show()
